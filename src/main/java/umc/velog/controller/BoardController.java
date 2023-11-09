@@ -14,13 +14,19 @@ import java.util.List;
 @RequestMapping ("/board") // "board"인지, "/board"인지
 public class BoardController {
 
-    private BoardService boardService;
+    private final BoardService boardService;
+
+    @Autowired
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
 
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
-    public String list() {
+    public String list(Model model) {
         List<BoardDto> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
         return "board/list";
     }
 
