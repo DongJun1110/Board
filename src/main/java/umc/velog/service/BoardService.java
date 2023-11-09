@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public BoardService(BoardRepository boardRepository) {
@@ -42,12 +44,15 @@ public class BoardService {
     public BoardDto savePost(BoardDto boardDto) {
         // Dto to entity
         Board entity = Board.toEntity(boardDto);
+        logger.info("To Entity : " + entity.toString());
 
         // save
         Board saveEntity = boardRepository.save(entity);
+        logger.info("save Entity : " + saveEntity.toString());
 
         // Entity To Dto
         BoardDto dto = BoardDto.toDto(saveEntity);
+        logger.info("To Dto : " + dto);
 
         return dto;
 

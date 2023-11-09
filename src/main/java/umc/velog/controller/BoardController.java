@@ -49,9 +49,10 @@ public class BoardController {
 
     // 글쓰기 뒤 POST로 DB에 저장
     // 글쓰기 뒤 /list 경로로 리디렉션
-    @PostMapping("/write-from")
+    @PostMapping("/write-form")
     public String write(BoardDto boardDto) {
         boardService.savePost(boardDto); // 게시글 작성 서비스 메소드 호출
-        return "redirect:/board/list";
+//        return "redirect:/board/list";
+        return "ok";
     }
 }

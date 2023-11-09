@@ -33,6 +33,7 @@ public class BoardDto {
                 .likeCount(boardEntity.getLikeCount())
                 .viewCount(boardEntity.getViewCount())
                 .build();
+
     }
 
 }
