@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import umc.velog.dto.BoardDto;
 
 import java.util.ArrayList;
@@ -39,7 +40,10 @@ public class Board {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @ColumnDefault("0")
     private int likeCount;
+
+    @ColumnDefault("0")
     private int viewCount;
 
     public static Board toEntity(BoardDto boardDto) {
