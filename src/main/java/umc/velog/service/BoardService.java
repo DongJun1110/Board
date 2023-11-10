@@ -38,7 +38,10 @@ public class BoardService {
 
     @Transactional
     public BoardDto getPost(Long postId) {
-        return null;
+        Optional<Board> boardWrapper = boardRepository.findById(postId);
+        Board board = boardWrapper.get();
+
+        return BoardDto.toDto(board);
     }
 
     @Transactional
