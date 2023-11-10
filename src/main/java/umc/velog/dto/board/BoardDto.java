@@ -1,12 +1,9 @@
-package umc.velog.dto;
+package umc.velog.dto.board;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Member;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -22,8 +19,6 @@ public class BoardDto {
     private Date createdDate;
     private int likeCount;
     private int viewCount;
-
-
 
     public static BoardDto toDto(Board boardEntity) {
         return BoardDto.builder()

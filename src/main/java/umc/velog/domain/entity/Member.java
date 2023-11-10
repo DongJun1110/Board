@@ -26,7 +26,7 @@ public class Member {
     private String username;
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
-    private List<Board> boards = new ArrayList<Board>();
+    private List<Board> boards = new ArrayList<>();
 
     @Column(nullable = false)
     private String password;
@@ -36,7 +36,5 @@ public class Member {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
-
 
 }
