@@ -1,12 +1,9 @@
 package umc.velog.dto;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Member;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
