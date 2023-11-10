@@ -23,8 +23,6 @@ public class BoardDto {
     private int likeCount;
     private int viewCount;
 
-
-
     public static BoardDto toDto(Board boardEntity) {
         return BoardDto.builder()
                 .id(boardEntity.getId())

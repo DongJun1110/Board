@@ -1,5 +1,6 @@
 package umc.velog.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,6 @@ public class BoardService {
         for (Board boardEntity : boardEntitys) {
             boardDtoList.add(BoardDto.toDto(boardEntity));
         }
-
         return boardDtoList;
     }
 
@@ -61,6 +61,5 @@ public class BoardService {
         return dto;
 
     }
-
     // 게시글 좋아요 서비스 추가 필요
 }
