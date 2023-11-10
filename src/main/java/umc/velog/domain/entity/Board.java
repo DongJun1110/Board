@@ -5,24 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import umc.velog.dto.BoardDto;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "board_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Member.class)
     @JoinColumn(name = "WRITER_ID")
     private Member writer;
 
@@ -32,11 +31,8 @@ public class Board {
     @Column(nullable = false)
     private String content;
 
-    @CreatedDate
-    private LocalDate createdDate;
-
-    @LastModifiedDate
-    private LocalDate modifiedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
     private int likeCount;
     private int viewCount;
@@ -48,10 +44,8 @@ public class Board {
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .createdDate(boardDto.getCreatedDate())
-                .modifiedDate(boardDto.getModifiedDate())
                 .likeCount(boardDto.getLikeCount())
                 .viewCount(boardDto.getViewCount())
                 .build();
-
     }
 }
