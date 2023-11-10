@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
-import umc.velog.dto.BoardDto;
+import umc.velog.dto.board.BoardDto;
 import umc.velog.repository.BoardRepository;
 
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ public class BoardService {
         for (Board boardEntity : boardEntitys) {
             boardDtoList.add(BoardDto.toDto(boardEntity));
         }
-
         return boardDtoList;
     }
 
@@ -61,6 +60,5 @@ public class BoardService {
         return dto;
 
     }
-
     // 게시글 좋아요 서비스 추가 필요
 }

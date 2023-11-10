@@ -4,22 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import umc.velog.dto.BoardDto;
+import umc.velog.domain.entity.Comment;
+import umc.velog.dto.board.BoardDto;
 import umc.velog.service.BoardService;
+import umc.velog.service.CommentService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping ("/board")
+@RequestMapping("/board")
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, CommentService commentService) {
         this.boardService = boardService;
+        this.commentService = commentService;
     }
-
 
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
@@ -39,7 +42,6 @@ public class BoardController {
         return "board/detail";
     }
 
-
     // 글쓰기 페이지
     @GetMapping("/write-form")
     public String write() {
@@ -53,5 +55,16 @@ public class BoardController {
     public String write(@RequestBody BoardDto boardDto) {
         boardService.savePost(boardDto);
         return "redirect:/board/list";
+    }
+
+    @PostMapping("/{boardId}/comments")
+    public Comment addCommentToBoard(@PathVariable Long boardId,
+                                     @RequestBody String content) {
+        return commentService.addCommentToBoard(boardId, content);
+    }
+
+    @GetMapping("/{boardId}/comments")
+    public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
+        return commentService.getCommentByBoardId(boardId);
     }
 }
