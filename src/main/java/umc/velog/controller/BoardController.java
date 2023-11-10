@@ -1,12 +1,11 @@
 package umc.velog.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.domain.entity.Comment;
-import umc.velog.dto.BoardDto;
+import umc.velog.dto.board.BoardDto;
 import umc.velog.service.BoardService;
 import umc.velog.service.CommentService;
 
