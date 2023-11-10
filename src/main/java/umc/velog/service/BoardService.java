@@ -12,6 +12,7 @@ import umc.velog.repository.BoardRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -37,7 +38,10 @@ public class BoardService {
 
     @Transactional
     public BoardDto getPost(Long postId) {
-        return null;
+        Optional<Board> boardWrapper = boardRepository.findById(postId);
+        Board board = boardWrapper.get();
+
+        return BoardDto.toDto(board);
     }
 
     @Transactional
@@ -52,7 +56,7 @@ public class BoardService {
 
         // Entity To Dto
         BoardDto dto = BoardDto.toDto(saveEntity);
-        logger.info("To Dto : " + dto);
+        logger.info("To dto : " + dto.toString());
 
         return dto;
 
