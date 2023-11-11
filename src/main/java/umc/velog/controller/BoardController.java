@@ -58,13 +58,16 @@ public class BoardController {
     }
 
     @PostMapping("/{boardId}/comments")
+    @ResponseBody
     public Comment addCommentToBoard(@PathVariable Long boardId,
                                      @RequestBody String content) {
         return commentService.addCommentToBoard(boardId, content);
     }
 
     @GetMapping("/{boardId}/comments")
+    @ResponseBody
     public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
         return commentService.getCommentByBoardId(boardId);
     }
+
 }
