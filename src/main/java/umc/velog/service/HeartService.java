@@ -36,21 +36,29 @@ public class HeartService {
                 .member(member)
                 .build();
         heartRepository.save(heart);
+
+        board.setLikeCount(board.getLikeCount() + 1);
+        boardRepository.save(board);
+
+        return heartDto;
     }
 
     @Transactional
-    public void delete(HeartRequestDto heartRequestDTO) throws Exception {
+    public HeartDto delete(HeartDto heartDTO) throws Exception {
 
-        Member member = memberRepository.findById(heartRequestDTO.getMemberId())
-                .orElseThrow(() -> new Exception("Could not found member id : " + heartRequestDTO.getMemberId()));
+        Member member = memberRepository.findById(heartDTO.getMemberId())
+                .orElseThrow(() -> new Exception("Could not found member id : " + heartDTO.getMemberId()));
 
-        Board board = boardRepository.findById(heartRequestDTO.getBoardId())
-                .orElseThrow(() -> new Exception("Could not found board id : " + heartRequestDTO.getBoardId()));
+        Board board = boardRepository.findById(heartDTO.getBoardId())
+                .orElseThrow(() -> new Exception("Could not found board id : " + heartDTO.getBoardId()));
 
         Heart heart = heartRepository.findByMemberAndBoard(member, board)
                 .orElseThrow(() -> new Exception("Could not found heart id"));
 
         heartRepository.delete(heart);
+        board.setLikeCount(board.getLikeCount() - 1);
+        boardRepository.save(board);
+        return heartDTO;
     }
 
 }
