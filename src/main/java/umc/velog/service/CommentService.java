@@ -40,6 +40,7 @@ public class CommentService {
             return board.getComments();
         }
         return new ArrayList<>();
+
     }
 
 }
