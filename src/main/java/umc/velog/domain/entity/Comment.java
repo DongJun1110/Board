@@ -2,12 +2,19 @@ package umc.velog.domain.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import umc.velog.dto.board.CommentDto;
 
 import java.util.Date;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
 
     @Id
@@ -27,5 +34,15 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "WRITER_ID")
     private Member member;
+
+    public static Comment toEntity(CommentDto commentDto) {
+        return Comment.builder()
+                .id(commentDto.getId())
+                .content(commentDto.getContent())
+                .createdAt(commentDto.getCreatedAt())
+                .board(commentDto.getBoard())
+                .member(commentDto.getMember())
+                .build();
+    }
 
 }

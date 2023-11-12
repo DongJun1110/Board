@@ -26,8 +26,10 @@ public class Heart {
     private Board board;
 
     @Builder
-    public Heart(Member member, Board board) {
+    public Heart(Long id, Member member, Board board) {
+        this.id = id;
         this.member = member;
         this.board = board;
     }
+
 }
