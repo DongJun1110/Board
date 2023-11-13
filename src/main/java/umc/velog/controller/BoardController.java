@@ -1,13 +1,11 @@
 package umc.velog.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.domain.entity.Comment;
 import umc.velog.dto.board.BoardDto;
-import umc.velog.dto.comment.CommentDto;
 import umc.velog.service.BoardService;
 import umc.velog.service.CommentService;
 
@@ -40,6 +38,7 @@ public class BoardController {
     public String detail(@PathVariable("postId") Long postId, Model model) {
         BoardDto boardDto = boardService.getPost(postId);
         model.addAttribute("board", boardDto);
+
         return "board/detail";
     }
 
@@ -58,6 +57,17 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PostMapping("/{boardId}/comments")
+    @ResponseBody
+    public Comment addCommentToBoard(@PathVariable Long boardId,
+                                     @RequestBody String content) {
+        return commentService.addCommentToBoard(boardId, content);
+    }
 
+    @GetMapping("/{boardId}/comments")
+    @ResponseBody
+    public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
+        return commentService.getCommentByBoardId(boardId);
+    }
 
 }
