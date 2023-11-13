@@ -1,30 +1,20 @@
 package umc.velog.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import umc.velog.domain.entity.Comment;
 import umc.velog.dto.board.BoardDto;
-import umc.velog.dto.comment.CommentDto;
 import umc.velog.service.BoardService;
-import umc.velog.service.CommentService;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/board")
+@RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
-    private final CommentService commentService;
-
-    @Autowired
-    public BoardController(BoardService boardService, CommentService commentService) {
-        this.boardService = boardService;
-        this.commentService = commentService;
-    }
 
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
@@ -36,9 +26,9 @@ public class BoardController {
     }
 
     // 상세 글 보기(게시글 페이지 이동)
-    @GetMapping("/{postId}")
-    public String detail(@PathVariable("postId") Long postId, Model model) {
-        BoardDto boardDto = boardService.getPost(postId);
+    @GetMapping("/{boardId}")
+    public String detail(@PathVariable("boardId") Long boardId, Model model) {
+        BoardDto boardDto = boardService.getPost(boardId);
         model.addAttribute("board", boardDto);
         return "board/detail";
     }
@@ -57,7 +47,5 @@ public class BoardController {
         boardService.savePost(boardDto);
         return "redirect:/board/list";
     }
-
-
 
 }
