@@ -1,12 +1,13 @@
-package umc.velog.dto.board;
+package umc.velog.dto.comment;
 
-import jakarta.persistence.*;
 import lombok.*;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Comment;
 import umc.velog.domain.entity.Member;
+import umc.velog.dto.board.BoardDto;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,13 +18,9 @@ public class CommentDto {
 
     private Long id;
     private String content;
-
     private Date createdAt;
-
     private Board board;
-
-    private Member member;
-
+    private Member writer;
 
     public static CommentDto toDto(Comment commentEntity) {
         return CommentDto.builder()
@@ -31,7 +28,7 @@ public class CommentDto {
                 .content(commentEntity.getContent())
                 .createdAt(commentEntity.getCreatedAt())
                 .board(commentEntity.getBoard())
-                .member(commentEntity.getMember())
+                .writer(commentEntity.getWriter())
                 .build();
     }
 }
