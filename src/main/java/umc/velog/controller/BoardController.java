@@ -58,20 +58,6 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @PostMapping("/{boardId}/comments")
-    @ResponseBody
-    public String saveComment(HttpServletRequest request,
-                         @PathVariable Long boardId
-                        ,@RequestBody CommentDto commentDto) {
-        commentService.addCommentToBoard(boardId, commentDto);
-        return request.getRequestURI();
-    }
-
-    @GetMapping("/{boardId}/comments")
-    @ResponseBody
-    public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
-        return commentService.getCommentByBoardId(boardId);
-    }
 
 
 }
