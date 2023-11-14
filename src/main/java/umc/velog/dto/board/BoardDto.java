@@ -25,9 +25,9 @@ public class BoardDto {
     public static BoardDto toDto(Board boardEntity) {
         return BoardDto.builder()
                 .id(boardEntity.getId())
-                .writer(boardEntity.getWriter())
                 .title(boardEntity.getTitle())
                 .content(boardEntity.getContent())
+                .writer(boardEntity.getWriter())
                 .createdDate(boardEntity.getCreatedDate())
                 .likeCount(boardEntity.getLikeCount())
                 .build();

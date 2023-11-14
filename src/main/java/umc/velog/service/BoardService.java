@@ -10,6 +10,7 @@ import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Comment;
 import umc.velog.domain.entity.Member;
 import umc.velog.dto.board.BoardDto;
+import umc.velog.dto.member.MemberDto;
 import umc.velog.repository.BoardRepository;
 import umc.velog.repository.MemberRepository;
 
@@ -60,13 +61,13 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardDto> getBoardByMemberId(Long memberId) {
-        List<Board> boardEntitys = boardRepository.findAllByWriterId(memberId);
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        for (Board boardEntity : boardEntitys) {
-            boardDtoList.add(BoardDto.toDto(boardEntity));
+    public List<MemberDto> getBoardByMemberId(Long writeId) {
+        List<Member> memberEntitys = memberRepository.findAllById(writeId);
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        for (Member memberEntity : memberEntitys) {
+            memberDtoList.add(MemberDto.toDto(memberEntity));
         }
-        System.out.println("boardDtoList = " + boardDtoList);
-        return boardDtoList;
+        System.out.println("memberDtoList = " + memberDtoList);
+        return memberDtoList;
     }
 }

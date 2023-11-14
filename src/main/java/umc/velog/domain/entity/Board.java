@@ -26,7 +26,7 @@ public class Board {
     @Column(name = "BOARD_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Member.class)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Member.class)
     @JsonIgnore
     @JoinColumn(name = "WRITER_ID")
     private Member writer;

@@ -74,7 +74,7 @@ public class BoardController {
     }
 
     @GetMapping("/{memberId}/profile")
-    public List<BoardDto> getBoardByMemberId(@PathVariable Long memberId) {
+    public List<MemberDto> getBoardByMemberId(@PathVariable Long memberId) {
         return boardService.getBoardByMemberId(memberId);
     }
 

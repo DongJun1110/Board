@@ -25,7 +25,7 @@
         @Column(name = "USERNAME", nullable = false)
         private String username;
 
-        @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
         private List<Board> boards = new ArrayList<>();
 
         @Column(nullable = false)
