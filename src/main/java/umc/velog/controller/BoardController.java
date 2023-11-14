@@ -6,15 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.heart.HeartDto;
+import umc.velog.dto.member.MemberDto;
 import umc.velog.service.BoardService;
 import umc.velog.service.CommentService;
 import umc.velog.service.HeartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import umc.velog.dto.board.BoardDto;
-import umc.velog.service.BoardService;
+
 import java.util.List;
 
 @Slf4j
