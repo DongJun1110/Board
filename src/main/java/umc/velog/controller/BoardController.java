@@ -1,29 +1,31 @@
 package umc.velog.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import umc.velog.domain.entity.Comment;
 import umc.velog.dto.board.BoardDto;
-import umc.velog.dto.comment.CommentDto;
+import umc.velog.dto.heart.HeartDto;
 import umc.velog.service.BoardService;
 import umc.velog.service.CommentService;
+import umc.velog.service.HeartService;
 
 import java.util.List;
 
-@Controller
+@Slf4j
+@RestController
 @RequestMapping("/board")
 public class BoardController {
 
     private final BoardService boardService;
+    private final HeartService heartService;
     private final CommentService commentService;
 
     @Autowired
-    public BoardController(BoardService boardService, CommentService commentService) {
+    public BoardController(BoardService boardService, CommentService commentService, HeartService heartService) {
         this.boardService = boardService;
         this.commentService = commentService;
+        this.heartService = heartService;
     }
 
     // 전체 글 보기 페이지(홈)
