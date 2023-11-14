@@ -9,12 +9,18 @@ import umc.velog.dto.heart.HeartDto;
 import umc.velog.service.BoardService;
 import umc.velog.service.CommentService;
 import umc.velog.service.HeartService;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import umc.velog.dto.board.BoardDto;
+import umc.velog.service.BoardService;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/board")
+@RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
@@ -28,6 +34,7 @@ public class BoardController {
         this.heartService = heartService;
     }
 
+
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
     public String list(Model model) {
@@ -38,9 +45,9 @@ public class BoardController {
     }
 
     // 상세 글 보기(게시글 페이지 이동)
-    @GetMapping("/{postId}")
-    public BoardDto detail(@PathVariable("postId") Long postId, Model model) {
-        BoardDto boardDto = boardService.getPost(postId);
+    @GetMapping("/{boardId}")
+    public BoardDto detail(@PathVariable("boardId") Long boardId, Model model) {
+        BoardDto boardDto = boardService.getPost(boardId);
         model.addAttribute("board", boardDto);
         return boardDto;
     }

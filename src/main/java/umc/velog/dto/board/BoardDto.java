@@ -3,8 +3,10 @@ package umc.velog.dto.board;
 import lombok.*;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Member;
+import umc.velog.dto.comment.CommentDto;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +20,7 @@ public class BoardDto {
     private Member writer;
     private Date createdDate;
     private int likeCount;
-    private int viewCount;
+    private List<CommentDto> comments;
 
     public static BoardDto toDto(Board boardEntity) {
         return BoardDto.builder()
@@ -28,8 +30,9 @@ public class BoardDto {
                 .content(boardEntity.getContent())
                 .createdDate(boardEntity.getCreatedDate())
                 .likeCount(boardEntity.getLikeCount())
-                .viewCount(boardEntity.getViewCount())
                 .build();
     }
+
+
 
 }

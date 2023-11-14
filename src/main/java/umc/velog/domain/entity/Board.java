@@ -1,5 +1,6 @@
 package umc.velog.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import umc.velog.dto.board.BoardDto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -25,6 +27,7 @@ public class Board {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Member.class)
+    @JsonIgnore
     @JoinColumn(name = "WRITER_ID")
     private Member writer;
 
@@ -43,9 +46,6 @@ public class Board {
     @ColumnDefault("0")
     private int likeCount;
 
-    @ColumnDefault("0")
-    private int viewCount;
-
     public static Board toEntity(BoardDto boardDto) {
         return Board.builder()
                 .id(boardDto.getId())
@@ -54,7 +54,7 @@ public class Board {
                 .content(boardDto.getContent())
                 .createdDate(boardDto.getCreatedDate())
                 .likeCount(boardDto.getLikeCount())
-                .viewCount(boardDto.getViewCount())
                 .build();
     }
+
 }

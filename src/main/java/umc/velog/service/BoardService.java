@@ -23,7 +23,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
     @Autowired
     public BoardService(BoardRepository boardRepository, MemberRepository memberRepository) {
         this.boardRepository = boardRepository;
@@ -32,9 +31,9 @@ public class BoardService {
 
     @Transactional
     public List<BoardDto> getBoardList() {
-        List<Board> boardEntitys = boardRepository.findAll();
+        List<Board> boardEntities = boardRepository.findAll();
         List<BoardDto> boardDtoList = new ArrayList<>();
-        for (Board boardEntity : boardEntitys) {
+        for (Board boardEntity : boardEntities) {
             boardDtoList.add(BoardDto.toDto(boardEntity));
         }
         return boardDtoList;
@@ -50,20 +49,14 @@ public class BoardService {
 
     @Transactional
     public BoardDto savePost(BoardDto boardDto) {
-        // Dto to entity
+        
         Board entity = Board.toEntity(boardDto);
-        logger.info("To Entity : " + entity.toString());
 
-        // save
         Board saveEntity = boardRepository.save(entity);
-        logger.info("save Entity : " + saveEntity.toString());
 
-        // Entity To Dto
         BoardDto dto = BoardDto.toDto(saveEntity);
-        logger.info("To dto : " + dto.toString());
 
         return dto;
-
     }
 
     @Transactional
