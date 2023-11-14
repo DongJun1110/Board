@@ -34,15 +34,15 @@ public class BoardController {
         List<BoardDto> boardList = boardService.getBoardList();
         model.addAttribute("boardList", boardList);
         System.out.println("boardList = " + boardList);
-        return "board/list";
+        return boardList.toString();
     }
 
     // 상세 글 보기(게시글 페이지 이동)
     @GetMapping("/{postId}")
-    public String detail(@PathVariable("postId") Long postId, Model model) {
+    public BoardDto detail(@PathVariable("postId") Long postId, Model model) {
         BoardDto boardDto = boardService.getPost(postId);
         model.addAttribute("board", boardDto);
-        return "board/detail";
+        return boardDto;
     }
 
     // 글쓰기 페이지
