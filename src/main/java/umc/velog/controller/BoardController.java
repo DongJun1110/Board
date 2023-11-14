@@ -56,9 +56,9 @@ public class BoardController {
     // 글쓰기 뒤 /list 경로로 리디렉션
     @PostMapping("/write-form")
     @ResponseBody
-    public String write(@RequestBody BoardDto boardDto) {
+    public BoardDto write(@RequestBody BoardDto boardDto) {
         boardService.savePost(boardDto);
-        return "redirect:/board/list";
+        return boardDto;
     }
 
     @PostMapping("/heart")
