@@ -60,6 +60,22 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PostMapping("/heart")
+    public HeartDto insert(@RequestBody HeartDto heartDto) throws Exception {
+        heartService.insert(heartDto);
+        return heartDto;
+    }
+
+    @DeleteMapping("/heart")
+    public HeartDto delete(@RequestBody HeartDto heartDto) throws Exception {
+        heartService.delete(heartDto);
+        return heartDto;
+    }
+
+    @GetMapping("/{memberId}/profile")
+    public List<BoardDto> getBoardByMemberId(@PathVariable Long memberId) {
+        return boardService.getBoardByMemberId(memberId);
+    }
 
 
 }
