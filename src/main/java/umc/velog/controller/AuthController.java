@@ -33,7 +33,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public void register(@RequestBody UserJoinDto userJoinDto) {
-        authService.join(userJoinDto);
+        try {
+            authService.join(userJoinDto);
+        } catch (Exception e) {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        }
     }
 
     @GetMapping("/info")
