@@ -1,5 +1,6 @@
 package umc.velog.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,22 +22,12 @@ import umc.velog.repository.UserRepository;
 
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService, UserDetailsService {
 
-    @Autowired
     private final UserRepository userRepository;
-
-    @Autowired
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
     private final JwtTokenProvider jwtTokenProvider;
-
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
 
     @Override
     public TokenInfo login(UserLoginDto userLoginDto) {

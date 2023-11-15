@@ -1,5 +1,6 @@
 package umc.velog.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +21,12 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    @Autowired
-    public BoardService(BoardRepository boardRepository, MemberRepository memberRepository) {
-        this.boardRepository = boardRepository;
-        this.memberRepository = memberRepository;
-    }
+
 
     @Transactional
     public List<BoardDto> getBoardList() {
