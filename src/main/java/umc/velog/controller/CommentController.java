@@ -10,7 +10,6 @@ import umc.velog.service.CommentService;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/comments")
 @RequiredArgsConstructor
