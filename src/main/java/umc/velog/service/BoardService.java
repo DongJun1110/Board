@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
-import umc.velog.domain.entity.Comment;
+
 import umc.velog.domain.entity.Member;
 import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.member.MemberDto;
@@ -25,8 +25,6 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
 
     @Transactional
     public List<BoardDto> getBoardList() {
@@ -60,12 +58,13 @@ public class BoardService {
 
     @Transactional
     public List<MemberDto> getBoardByMemberId(Long writeId) {
-        List<Member> memberEntitys = memberRepository.findAllById(writeId);
+        List<Member> memberEntities = memberRepository.findAllById(writeId);
         List<MemberDto> memberDtoList = new ArrayList<>();
-        for (Member memberEntity : memberEntitys) {
+        for (Member memberEntity : memberEntities) {
             memberDtoList.add(MemberDto.toDto(memberEntity));
         }
         System.out.println("memberDtoList = " + memberDtoList);
         return memberDtoList;
     }
+
 }

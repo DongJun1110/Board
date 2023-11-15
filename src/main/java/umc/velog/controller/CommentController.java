@@ -10,7 +10,6 @@ import umc.velog.service.CommentService;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/comments")
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{boardId}/{memberId}")
-    @ResponseBody
+    //@ResponseBody
     public String saveComment(HttpServletRequest request,
                               @PathVariable Long boardId,
                               @PathVariable Long memberId
