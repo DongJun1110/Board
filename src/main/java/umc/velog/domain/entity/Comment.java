@@ -26,7 +26,6 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    //Board하고 Member 엔티티를 참조(둘 다 일대다 관계)
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "BOARD_ID")
