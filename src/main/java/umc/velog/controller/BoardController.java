@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.dto.board.BoardDto;
+import umc.velog.dto.member.MemberDto;
 import umc.velog.service.BoardService;
 
 import java.util.List;
@@ -47,4 +48,10 @@ public class BoardController {
         boardService.savePost(boardDto);
         return "redirect:/board/list";
     }
+
+    @GetMapping("/{memberId}/profile")
+    public List<MemberDto> getBoardByMemberId(@PathVariable Long memberId) {
+        return boardService.getBoardByMemberId(memberId);
+    }
+
 }
