@@ -13,12 +13,21 @@ import umc.velog.service.AuthService;
 @RequestMapping("/auth")
 public class AuthController {
 
-
     private final AuthService authService;
 
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
+    }
+
+    @GetMapping("/loginPage")
+    public String loginPage() {
+        return "auth/loginForm";
+    }
+
+    @GetMapping("/joinPage")
+    public String joinPage() {
+        return "auth/joinForm";
     }
 
     @PostMapping("/login")
