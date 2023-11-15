@@ -22,7 +22,7 @@ public class MemberDto {
     private Long id;
     private String username;
     private String userId;
-    private List<Long> boardIds; // Assuming only board IDs are needed in the DTO
+    private List<Board> boards; // Assuming only board IDs are needed in the DTO
     private String password;
     private String email;
     private Date createdDate;
@@ -33,7 +33,7 @@ public class MemberDto {
                 .id(memberEntity.getId())
                 .username(memberEntity.getUsername())
                 .userId(memberEntity.getUserId())
-                .boardIds(memberEntity.getBoards().stream().map(Board::getId).collect(Collectors.toList()))
+                .boards(memberEntity.getBoards())
                 .password(memberEntity.getPassword())
                 .email(memberEntity.getEmail())
                 .createdDate(memberEntity.getCreatedDate())
@@ -42,3 +42,5 @@ public class MemberDto {
     }
 
 }
+
+
