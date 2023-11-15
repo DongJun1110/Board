@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
+
 import umc.velog.domain.entity.Member;
 import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.member.MemberDto;
@@ -22,7 +23,6 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class BoardService {
-
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
