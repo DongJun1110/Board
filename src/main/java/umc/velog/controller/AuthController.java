@@ -1,24 +1,20 @@
 package umc.velog.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import umc.velog.dto.user.UserJoinDto;
 import umc.velog.security.TokenInfo;
 import umc.velog.dto.user.UserInfoDto;
-import umc.velog.dto.user.UserJoinDto;
 import umc.velog.dto.user.UserLoginDto;
 import umc.velog.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
-
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @GetMapping("/loginPage")
     public String loginPage() {
