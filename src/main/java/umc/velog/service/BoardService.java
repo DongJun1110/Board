@@ -45,11 +45,9 @@ public class BoardService {
         
         Board entity = Board.toEntity(boardDto);
 
-        Board saveEntity = boardRepository.save(entity);
+        boardRepository.save(entity);
 
-        BoardDto dto = BoardDto.toDto(saveEntity);
-
-        return dto;
+        return BoardDto.toDto(entity);
     }
 
     @Transactional
