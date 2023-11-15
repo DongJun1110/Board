@@ -1,20 +1,17 @@
 package umc.velog.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import umc.velog.security.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User implements UserDetails {
 
@@ -23,25 +20,21 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Long id;
 
+    @Getter
     @Column(nullable = false)
     private String userId;
 
+    @Getter
     @Column(nullable = false)
     private String password;
 
+    @Getter
     @Column(nullable = false)
     private String userName;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public Role getRole() {
-        return role;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -60,21 +53,13 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public String getUsername() {
-        return null;
+        return userName;
     }
 
     @Override
