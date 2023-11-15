@@ -54,12 +54,13 @@ public class BoardService {
 
     @Transactional
     public List<MemberDto> getBoardByMemberId(Long writeId) {
-        List<Member> memberEntitys = memberRepository.findAllById(writeId);
+        List<Member> memberEntities = memberRepository.findAllById(writeId);
         List<MemberDto> memberDtoList = new ArrayList<>();
-        for (Member memberEntity : memberEntitys) {
+        for (Member memberEntity : memberEntities) {
             memberDtoList.add(MemberDto.toDto(memberEntity));
         }
         System.out.println("memberDtoList = " + memberDtoList);
         return memberDtoList;
     }
+
 }
