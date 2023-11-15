@@ -1,42 +1,29 @@
 package umc.velog.controller;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.dto.board.BoardDto;
-import umc.velog.dto.heart.HeartDto;
 import umc.velog.dto.member.MemberDto;
 import umc.velog.service.BoardService;
-import umc.velog.service.CommentService;
-import umc.velog.service.HeartService;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Slf4j
-@RestController
+@Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
-    private final HeartService heartService;
-    private final CommentService commentService;
-
-    @Autowired
-    public BoardController(BoardService boardService, CommentService commentService, HeartService heartService) {
-        this.boardService = boardService;
-        this.commentService = commentService;
-        this.heartService = heartService;
-    }
-
 
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
-    public List<BoardDto> list() {
+    public String list(Model model) {
         List<BoardDto> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
         System.out.println("boardList = " + boardList);
-        return boardList;
+        return "board/list";
     }
 
     // 상세 글 보기(게시글 페이지 이동)
