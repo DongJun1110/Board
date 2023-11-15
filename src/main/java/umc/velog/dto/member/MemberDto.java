@@ -3,6 +3,7 @@ package umc.velog.dto.member;
 import lombok.*;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Member;
+import umc.velog.domain.entity.Role;
 import java.util.Date;
 import java.util.List;
 
@@ -15,20 +16,26 @@ public class MemberDto {
 
     private Long id;
     private String username;
+    private String userId;
     private List<Board> boards; // Assuming only board IDs are needed in the DTO
     private String password;
     private String email;
     private Date createdDate;
+    private Role role;
 
     public static MemberDto toDto(Member memberEntity) {
         return MemberDto.builder()
                 .id(memberEntity.getId())
                 .username(memberEntity.getUsername())
+                .userId(memberEntity.getUserId())
                 .boards(memberEntity.getBoards())
                 .password(memberEntity.getPassword())
                 .email(memberEntity.getEmail())
                 .createdDate(memberEntity.getCreatedDate())
+                .role(memberEntity.getRole())
                 .build();
     }
 
 }
+
+
