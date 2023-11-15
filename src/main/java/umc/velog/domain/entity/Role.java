@@ -1,4 +1,4 @@
-package umc.velog.security;
+package umc.velog.domain.entity;
 
 
 import lombok.Getter;
