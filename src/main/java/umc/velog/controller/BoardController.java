@@ -42,21 +42,9 @@ public class BoardController {
     // 글쓰기 뒤 /list 경로로 리디렉션
     @PostMapping("/write-form")
     @ResponseBody
-    public BoardDto write(@RequestBody BoardDto boardDto) {
+    public String write(@RequestBody BoardDto boardDto) {
         boardService.savePost(boardDto);
-        return boardDto;
-    }
-
-    @PostMapping("/heart")
-    public HeartDto insert(@RequestBody HeartDto heartDto) throws Exception {
-        heartService.insert(heartDto);
-        return heartDto;
-    }
-
-    @DeleteMapping("/heart")
-    public HeartDto delete(@RequestBody HeartDto heartDto) throws Exception {
-        heartService.delete(heartDto);
-        return heartDto;
+        return "redirect:/board/list";
     }
 
     @GetMapping("/{memberId}/profile")
