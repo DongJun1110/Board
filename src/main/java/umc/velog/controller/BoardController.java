@@ -28,8 +28,10 @@ public class BoardController {
 
     // 상세 글 보기(게시글 페이지 이동)
     @GetMapping("/{boardId}")
-    public BoardDto detail(@PathVariable("boardId") Long boardId) {
-        return boardService.getPost(boardId);
+    public String detail(@PathVariable("boardId") Long boardId, Model model) {
+        BoardDto boardDto = boardService.getPost(boardId);
+        model.addAttribute("board", boardDto);
+        return "board/detail";
     }
 
     // 글쓰기 페이지
@@ -51,6 +53,5 @@ public class BoardController {
     public List<MemberDto> getBoardByMemberId(@PathVariable Long memberId) {
         return boardService.getBoardByMemberId(memberId);
     }
-
 
 }
