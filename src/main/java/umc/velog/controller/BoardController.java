@@ -47,5 +47,4 @@ public class BoardController {
         boardService.savePost(boardDto);
         return "redirect:/board/list";
     }
-
 }
