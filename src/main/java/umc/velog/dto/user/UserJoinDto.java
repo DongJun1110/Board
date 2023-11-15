@@ -1,13 +1,13 @@
-package umc.velog.dto;
+package umc.velog.dto.user;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import umc.velog.domain.entity.Role;
 
-import java.util.Date;
-
 @Data
+@Getter
+@Setter
 public class UserJoinDto {
 
     private String userId;

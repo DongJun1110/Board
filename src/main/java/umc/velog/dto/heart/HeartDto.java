@@ -8,8 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeartDto {
-
     private Long memberId;
     private Long boardId;
-
 }

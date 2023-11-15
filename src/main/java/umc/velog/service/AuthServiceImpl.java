@@ -1,7 +1,6 @@
 package umc.velog.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,10 +15,9 @@ import umc.velog.security.JwtTokenProvider;
 import umc.velog.domain.entity.Role;
 import umc.velog.security.SecurityUtil;
 import umc.velog.security.TokenInfo;
-import umc.velog.dto.UserInfoDto;
-import umc.velog.dto.UserJoinDto;
-import umc.velog.dto.UserLoginDto;
-
+import umc.velog.dto.user.UserInfoDto;
+import umc.velog.dto.user.UserLoginDto;
+import umc.velog.dto.user.UserJoinDto;
 import java.util.Date;
 
 @Service

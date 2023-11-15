@@ -2,7 +2,7 @@ package umc.velog.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import umc.velog.dto.UserInfoDto;
+import umc.velog.dto.user.UserInfoDto;
 
 public class SecurityUtil {
     public static UserInfoDto getCurrentMemberId() {
