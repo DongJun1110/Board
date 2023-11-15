@@ -2,7 +2,6 @@ package umc.velog.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.heart.HeartDto;
@@ -42,7 +41,7 @@ public class BoardController {
 
     // 상세 글 보기(게시글 페이지 이동)
     @GetMapping("/{boardId}")
-    public BoardDto detail(@PathVariable("boardId") Long boardId, Model model) {
+    public BoardDto detail(@PathVariable("boardId") Long boardId) {
         return boardService.getPost(boardId);
     }
 

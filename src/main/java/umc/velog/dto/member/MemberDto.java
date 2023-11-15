@@ -2,14 +2,9 @@ package umc.velog.dto.member;
 
 import lombok.*;
 import umc.velog.domain.entity.Board;
-import umc.velog.domain.entity.Comment;
 import umc.velog.domain.entity.Member;
-import umc.velog.dto.comment.CommentDto;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
