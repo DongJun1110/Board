@@ -1,5 +1,6 @@
 package umc.velog.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
+import umc.velog.domain.entity.Comment;
+import umc.velog.domain.entity.Member;
 import umc.velog.dto.board.BoardDto;
+import umc.velog.dto.member.MemberDto;
 import umc.velog.repository.BoardRepository;
+import umc.velog.repository.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +21,12 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BoardService {
-
     private final BoardRepository boardRepository;
-    @Autowired
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
+    private final MemberRepository memberRepository;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
 
     @Transactional
     public List<BoardDto> getBoardList() {
@@ -52,5 +56,16 @@ public class BoardService {
         BoardDto dto = BoardDto.toDto(saveEntity);
 
         return dto;
+    }
+
+    @Transactional
+    public List<MemberDto> getBoardByMemberId(Long writeId) {
+        List<Member> memberEntitys = memberRepository.findAllById(writeId);
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        for (Member memberEntity : memberEntitys) {
+            memberDtoList.add(MemberDto.toDto(memberEntity));
+        }
+        System.out.println("memberDtoList = " + memberDtoList);
+        return memberDtoList;
     }
 }
