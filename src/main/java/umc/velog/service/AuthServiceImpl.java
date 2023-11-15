@@ -22,7 +22,6 @@ import umc.velog.dto.UserLoginDto;
 
 import java.util.Date;
 
-
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService, UserDetailsService {
