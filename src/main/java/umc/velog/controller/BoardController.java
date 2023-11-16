@@ -1,11 +1,14 @@
 package umc.velog.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import umc.velog.domain.entity.Member;
 import umc.velog.dto.board.BoardDto;
+import umc.velog.dto.board.BoardRequestDto;
+import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
 import umc.velog.service.BoardService;
 
@@ -30,7 +33,7 @@ public class BoardController {
     // 상세 글 보기(게시글 페이지 이동)
     @GetMapping("/{boardId}")
     @ResponseBody
-    public BoardDto detail(@PathVariable("boardId") Long boardId) {
+    public BoardResponseDto detail(@PathVariable("boardId") Long boardId) {
         return boardService.getPost(boardId);
     }
 
@@ -44,8 +47,10 @@ public class BoardController {
     // 글쓰기 뒤 /list 경로로 리디렉션
     @PostMapping("/write-form")
     @ResponseBody
-    public BoardDto write(@RequestPart("data") BoardDto boardDto, @RequestPart(required = false) MultipartFile image) {
-        return boardService.savePost(boardDto, image);
+    public void write(@RequestPart("data") BoardRequestDto boardRequestDto,
+                      @RequestPart(required = false) MultipartFile image,
+                      @AuthenticationPrincipal Member writer){
+        boardService.savePost(boardRequestDto, image, writer);
     }
 
     @GetMapping("/{memberId}/profile")
@@ -53,5 +58,4 @@ public class BoardController {
     public List<MemberDto> getBoardByMemberId(@PathVariable Long memberId) {
         return boardService.getBoardByMemberId(memberId);
     }
-
 }
