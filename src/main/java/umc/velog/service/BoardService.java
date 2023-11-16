@@ -58,7 +58,13 @@ public class BoardService {
             }
         }
 
+
+
         Board boardEntity = Board.toEntity(boardDto);
+
+        boardEntity.setPostImg(postImg);
+
+        System.out.println("boardEntity.getPostImg() = " + boardEntity.getPostImg());
 
         boardRepository.save(boardEntity);
 

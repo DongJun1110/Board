@@ -56,7 +56,7 @@ public class Board {
                 .content(boardDto.getContent())
                 .createdDate(boardDto.getCreatedDate())
                 .likeCount(boardDto.getLikeCount())
-                .postImg(boardDto.getPostImage())
+                .postImg(boardDto.getPostImg())
                 .build();
     }
 
