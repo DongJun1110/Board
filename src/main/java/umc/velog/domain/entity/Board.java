@@ -44,6 +44,10 @@ public class Board {
     @ColumnDefault("0")
     private int likeCount;
 
+    @Column
+    private String postImg;
+
+
     public static Board toEntity(BoardDto boardDto) {
         return Board.builder()
                 .id(boardDto.getId())
@@ -52,6 +56,7 @@ public class Board {
                 .content(boardDto.getContent())
                 .createdDate(boardDto.getCreatedDate())
                 .likeCount(boardDto.getLikeCount())
+                .postImg(boardDto.getPostImg())
                 .build();
     }
 
