@@ -19,37 +19,37 @@ public class BoardController {
 
     // 전체 글 보기 페이지(홈)
     @GetMapping("")
-    public String list(Model model) {
+    @ResponseBody
+    public List<BoardDto> list() {
         List<BoardDto> boardList = boardService.getBoardList();
-        model.addAttribute("boardList", boardList);
         System.out.println("boardList = " + boardList);
-        return "board/list";
+        return boardList;
     }
 
     // 상세 글 보기(게시글 페이지 이동)
     @GetMapping("/{boardId}")
-    public String detail(@PathVariable("boardId") Long boardId, Model model) {
-        BoardDto boardDto = boardService.getPost(boardId);
-        model.addAttribute("board", boardDto);
-        return "board/detail";
+    @ResponseBody
+    public BoardDto detail(@PathVariable("boardId") Long boardId) {
+        return boardService.getPost(boardId);
     }
 
     // 글쓰기 페이지
     @GetMapping("/write-form")
     public String write() {
-        return "board/write-from";
+        return "board/write-form";
     }
 
     // 글쓰기 뒤 POST로 DB에 저장
     // 글쓰기 뒤 /list 경로로 리디렉션
     @PostMapping("/write-form")
     @ResponseBody
-    public String write(@RequestBody BoardDto boardDto) {
-        boardService.savePost(boardDto);
-        return "redirect:/board/list";
+    public BoardDto write(@RequestPart("data") BoardDto boardDto, @RequestPart(required = false) MultipartFile image) {
+        boardService.savePost(boardDto, image);
+        return boardDto;
     }
 
     @GetMapping("/{memberId}/profile")
+    @ResponseBody
     public List<MemberDto> getBoardByMemberId(@PathVariable Long memberId) {
         return boardService.getBoardByMemberId(memberId);
     }

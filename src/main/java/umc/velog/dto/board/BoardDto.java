@@ -21,6 +21,7 @@ public class BoardDto {
     private Date createdDate;
     private int likeCount;
     private List<CommentDto> comments;
+    private String postImage;
 
     public static BoardDto toDto(Board boardEntity) {
         return BoardDto.builder()
@@ -30,9 +31,9 @@ public class BoardDto {
                 .writer(boardEntity.getWriter())
                 .createdDate(boardEntity.getCreatedDate())
                 .likeCount(boardEntity.getLikeCount())
+                .postImage(boardEntity.getPostImg())
                 .build();
     }
-
 
 
 }
