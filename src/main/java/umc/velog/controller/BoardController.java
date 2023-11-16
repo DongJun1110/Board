@@ -45,8 +45,7 @@ public class BoardController {
     @PostMapping("/write-form")
     @ResponseBody
     public BoardDto write(@RequestPart("data") BoardDto boardDto, @RequestPart(required = false) MultipartFile image) {
-        boardService.savePost(boardDto, image);
-        return boardDto;
+        return boardService.savePost(boardDto, image);
     }
 
     @GetMapping("/{memberId}/profile")
