@@ -22,11 +22,11 @@ import java.util.Collection;
 public class Member implements UserDetails {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "WRITER_ID")
         private Long id;
 
-        @Column(name = "USERNAME")
+        @Column
         private String username;
 
         @Column
