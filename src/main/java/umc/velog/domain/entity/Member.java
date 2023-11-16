@@ -23,10 +23,10 @@ public class Member implements UserDetails {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "WRITER_ID", nullable = false)
+        @Column(name = "WRITER_ID")
         private Long id;
 
-        @Column(name = "USERNAME", nullable = false)
+        @Column(name = "USERNAME")
         private String username;
 
         @Column
@@ -35,10 +35,10 @@ public class Member implements UserDetails {
         @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
         private List<Board> boards = new ArrayList<>();
 
-        @Column(nullable = false)
+        @Column
         private String password;
 
-        @Column(nullable = false)
+        @Column
         private String email;
 
         @Temporal(TemporalType.TIMESTAMP)
