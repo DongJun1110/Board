@@ -44,14 +44,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     }
 
     @Override
-    public Member join(UserJoinDto userJoinDto) throws Exception {
-
-        String inputPassword = userJoinDto.getPassword();
-        String inputConfirmPassword = userJoinDto.getConfirmPassword();
-
-        if (!(isTwoPasswordAlign(inputPassword, inputConfirmPassword))) {
-            throw new Exception();
-        }
+    public Member join(UserJoinDto userJoinDto){
 
         Member member = new Member();
         member.setUserId(userJoinDto.getUserId());
@@ -87,11 +80,5 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 .password(passwordEncoder.encode(member.getPassword()))
                 .roles(member.getRole().toString())
                 .build();
-    }
-
-    private boolean isTwoPasswordAlign(String password, String confirmPassword) {
-        if(password.equals(confirmPassword)){
-            return true;
-        }else return false;
     }
 }
