@@ -26,19 +26,19 @@ public class Member implements UserDetails {
         @Column(name = "WRITER_ID")
         private Long id;
 
-        @Column
+        @Column(nullable = false)
         private String username;
 
-        @Column
+        @Column(nullable = false)
         private String userId;
 
         @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
         private List<Board> boards = new ArrayList<>();
 
-        @Column
+        @Column(nullable = false)
         private String password;
 
-        @Column
+        @Column(nullable = false)
         private String email;
 
         @Temporal(TemporalType.TIMESTAMP)
