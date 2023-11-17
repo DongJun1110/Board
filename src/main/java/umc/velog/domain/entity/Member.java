@@ -1,6 +1,5 @@
 package umc.velog.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,9 +49,9 @@ public class Member implements UserDetails {
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             Collection<GrantedAuthority> authorities = new ArrayList<>();
-            System.out.println("entity " + authorities);
+            System.out.println("getAuthorites안 entity " + authorities);
             authorities.add(new SimpleGrantedAuthority(role.toString()));
-            System.out.println("entity " + authorities);
+            System.out.println("getAuthorites안 entity " + authorities);
             return authorities;
         }
 

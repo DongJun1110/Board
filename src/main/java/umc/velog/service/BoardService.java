@@ -2,6 +2,7 @@ package umc.velog.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
 import umc.velog.repository.BoardRepository;
 import umc.velog.repository.MemberRepository;
+import umc.velog.security.SecurityUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
