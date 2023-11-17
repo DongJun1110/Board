@@ -92,4 +92,9 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+
+    // Add this method to set the authentication
+    public void setAuthentication(Authentication authentication) {
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
 }
