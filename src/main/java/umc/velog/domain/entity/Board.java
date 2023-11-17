@@ -2,10 +2,7 @@ package umc.velog.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import umc.velog.dto.board.BoardDto;
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

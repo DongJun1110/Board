@@ -13,7 +13,6 @@ public class UserJoinDto {
     private String userId;
     private String userName;
     private String password;
-    private String confirmPassword;
     private String email;
     private Role role;
 
