@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -29,11 +30,9 @@ public class BoardService {
     @Transactional
     public List<BoardDto> getBoardList() {
         List<Board> boardEntities = boardRepository.findAll();
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        for (Board boardEntity : boardEntities) {
-            boardDtoList.add(BoardDto.toDto(boardEntity));
-        }
-        return boardDtoList;
+        return boardEntities.stream()
+                .map(BoardDto::toDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
