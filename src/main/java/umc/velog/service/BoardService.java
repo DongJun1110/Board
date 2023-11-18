@@ -74,7 +74,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void savePost(BoardRequestDto boardRequestDto, MultipartFile image){
+    public Long savePost(BoardRequestDto boardRequestDto, MultipartFile image){
 
         String postImg = null; //url받을 변수를 초기화
 
@@ -109,6 +109,7 @@ public class BoardService {
 
                 // 글의 작성자를 현재 인증된 사용자로 설정
                 boardRepository.save(board);
+                return board.getId();
             } else {
                 // 작성자를 찾을 수 없는 경우 처리
                 System.out.println("userId에 해당하는 작성자를 찾을 수 없습니다: " + userId);
@@ -119,6 +120,7 @@ public class BoardService {
             // 예외를 throw하거나 메시지를 기록하는 등의 방법으로 처리할 수 있습니다
             System.out.println("사용자가 인증되어 있지 않습니다");
         }
+        return null;
     }
 
     @Transactional
