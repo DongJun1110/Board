@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class Board {
     @Column(name = "BOARD_ID")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Member.class)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Member.class)
     @JsonIgnore
     @JoinColumn(name = "WRITER_ID")
     private Member writer;
@@ -44,7 +45,6 @@ public class Board {
 
     @Column
     private String postImg;
-
 
     public static Board toEntity(BoardDto boardDto) {
         return Board.builder()

@@ -2,6 +2,7 @@ package umc.velog.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +16,14 @@ import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
 import umc.velog.repository.BoardRepository;
 import umc.velog.repository.MemberRepository;
+import umc.velog.security.SecurityUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,11 +36,9 @@ public class BoardService {
     @Transactional
     public List<BoardDto> getBoardList() {
         List<Board> boardEntities = boardRepository.findAll();
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        for (Board boardEntity : boardEntities) {
-            boardDtoList.add(BoardDto.toDto(boardEntity));
-        }
-        return boardDtoList;
+        return boardEntities.stream()
+                .map(BoardDto::toDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -73,7 +74,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void savePost(BoardRequestDto boardRequestDto, MultipartFile image, Member writer){
+    public void savePost(BoardRequestDto boardRequestDto, MultipartFile image){
 
         String postImg = null; //url받을 변수를 초기화
 
@@ -86,26 +87,53 @@ public class BoardService {
             }
         }
 
-        Board board = new Board();
-        board.setWriter(writer);
-        board.setTitle(boardRequestDto.getTitle());
-        board.setContent(boardRequestDto.getContent());
-        board.setCreatedDate(new Date());
-        board.setComments(null);
-        board.setPostImg(postImg);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Get the username of the currently authenticated user
+            String userId = SecurityUtil.getCurrentMemberId().getUserId();
+            System.out.println("savePost안 userId = " + userId);
 
-        boardRepository.save(board);
+            // userId를 사용할 수 있게 되었으므로 로직에서 활용
+            Optional<Member> writerOptional = memberRepository.findByUserId(userId);
+            if (writerOptional.isPresent()) {
+                Member writer = writerOptional.get();
+                System.out.println("savePost 안 writer = " + writer);
+
+                Board board = new Board();
+                board.setTitle(boardRequestDto.getTitle());
+                board.setContent(boardRequestDto.getContent());
+                board.setCreatedDate(new Date());
+                board.setComments(null);
+                board.setPostImg(postImg);
+                board.setWriter(writer);
+
+                // 글의 작성자를 현재 인증된 사용자로 설정
+                boardRepository.save(board);
+            } else {
+                // 작성자를 찾을 수 없는 경우 처리
+                System.out.println("userId에 해당하는 작성자를 찾을 수 없습니다: " + userId);
+                // 예외를 throw하거나 적절한 방식으로 처리할 수 있습니다
+            }
+        } else {
+            // 사용자가 인증되어 있지 않은 경우 처리
+            // 예외를 throw하거나 메시지를 기록하는 등의 방법으로 처리할 수 있습니다
+            System.out.println("사용자가 인증되어 있지 않습니다");
+        }
     }
 
     @Transactional
-    public List<MemberDto> getBoardByMemberId(Long writeId) {
-        List<Member> memberEntities = memberRepository.findAllById(writeId);
+    public List<MemberDto> getBoardByUserId(String userId) {
+        Optional<Member> memberOptional = memberRepository.findByUserId(userId);
         List<MemberDto> memberDtoList = new ArrayList<>();
-        for (Member memberEntity : memberEntities) {
+
+        // Optional이 존재하는 경우에만 로직을 수행
+        memberOptional.ifPresent(memberEntity -> {
             memberDtoList.add(MemberDto.toDto(memberEntity));
-        }
-        System.out.println("memberDtoList = " + memberDtoList);
+            System.out.println("memberDtoList = " + memberDtoList);
+        });
+
         return memberDtoList;
     }
+
 
 }

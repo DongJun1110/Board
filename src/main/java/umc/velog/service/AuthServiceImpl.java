@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +41,13 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
         tokenInfo.setEmail(member.getUserId());
         tokenInfo.setMemberRole(member.getRole().toString());
+
+        // Set the authentication in JwtTokenProvider
+        jwtTokenProvider.setAuthentication(authentication);
+        SecurityUtil.getCurrentMemberId();
+        System.out.println("login 안에서 SecurityUtil.getCurrentMemberId() = " + SecurityUtil.getCurrentMemberId());
+        System.out.println("login안에서 tokenInfo = " + tokenInfo);
+
         return tokenInfo;
     }
 
@@ -58,6 +66,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         member.setUsername(userJoinDto.getUserName());
         member.setEmail(userJoinDto.getEmail());
         member.setCreatedDate(new Date());
+        System.out.println("join 안에서 member = " + member);
         return memberRepository.save(member);
     }
 
@@ -68,8 +77,8 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        return memberRepository.findByUserId(userId)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return memberRepository.findByUsername(username)
                 .map(this::createUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
     }
