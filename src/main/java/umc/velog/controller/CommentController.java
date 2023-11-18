@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import umc.velog.domain.entity.Comment;
 import umc.velog.dto.comment.CommentDto;
 import umc.velog.service.CommentService;
-
 import java.util.List;
 
 @Controller
