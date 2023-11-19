@@ -36,10 +36,16 @@ public class BoardService {
     @Transactional
     public List<BoardDto> getBoardList() {
         List<Board> boardEntities = boardRepository.findAll();
-        return boardEntities.stream()
-                .map(BoardDto::toDto)
-                .collect(Collectors.toList());
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board boardEntity : boardEntities) {
+            BoardDto boardDto = BoardDto.toDto(boardEntity);
+            boardDtoList.add(boardDto);
+        }
+
+        return boardDtoList;
     }
+
 
     @Transactional
     public BoardResponseDto getPost(Long postId) {
