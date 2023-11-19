@@ -29,6 +29,8 @@ public class SearchService {
 
         for (Board board : foundBoard) {
             SearchResponseDto result = new SearchResponseDto();
+            result.setTitle(board.getTitle());
+            result.setContent(board.getContent());
             result.setPostImg(board.getPostImg());
             result.setUserName(board.getWriter().getUsername());
             result.setCommentsCount(board.getComments().size());
