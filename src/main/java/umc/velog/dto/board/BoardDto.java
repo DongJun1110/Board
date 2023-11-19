@@ -17,7 +17,7 @@ public class BoardDto {
     private Long id;
     private String title;
     private String content;
-    private Member writer;
+    private String writerId;
     private Date createdDate;
     private int likeCount;
     private List<CommentDto> comments;
@@ -28,7 +28,7 @@ public class BoardDto {
                 .id(boardEntity.getId())
                 .title(boardEntity.getTitle())
                 .content(boardEntity.getContent())
-                .writer(boardEntity.getWriter())
+                .writerId(boardEntity.getWriter().getUserId())
                 .createdDate(boardEntity.getCreatedDate())
                 .likeCount(boardEntity.getLikeCount())
                 .postImg(boardEntity.getPostImg())
