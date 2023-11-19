@@ -45,16 +45,4 @@ public class Board {
     @Column
     private String postImg;
 
-    public static Board toEntity(BoardDto boardDto) {
-        return Board.builder()
-                .id(boardDto.getId())
-                .writer(boardDto.getWriter())
-                .title(boardDto.getTitle())
-                .content(boardDto.getContent())
-                .createdDate(boardDto.getCreatedDate())
-                .likeCount(boardDto.getLikeCount())
-                .postImg(boardDto.getPostImg())
-                .build();
-    }
-
 }
