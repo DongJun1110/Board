@@ -73,6 +73,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public UserInfoDto info() {
         UserInfoDto userInfoDto = SecurityUtil.getCurrentMemberId();
+        System.out.println("info 서비스안에서 userInfoDto = " + userInfoDto);
         return userInfoDto;
     }
 
