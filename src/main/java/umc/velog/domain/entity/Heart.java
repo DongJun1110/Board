@@ -1,16 +1,15 @@
 package umc.velog.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Heart {
