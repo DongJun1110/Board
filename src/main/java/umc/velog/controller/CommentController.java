@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.domain.entity.Comment;
 import umc.velog.dto.comment.CommentDto;
+import umc.velog.dto.comment.RequestCommentDto;
 import umc.velog.service.CommentService;
 import java.util.List;
 
@@ -16,13 +17,12 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{boardId}/{memberId}")
-    //@ResponseBody
+    @PostMapping("/{boardId}")
+    @ResponseBody
     public String saveComment(HttpServletRequest request,
-                              @PathVariable Long boardId,
-                              @PathVariable Long memberId
-            ,@RequestBody CommentDto commentDto) {
-        commentService.addCommentToBoard(boardId, memberId, commentDto);
+                              @PathVariable Long boardId
+            ,@RequestBody RequestCommentDto requestcommentDto) {
+        commentService.addCommentToBoard(boardId, requestcommentDto);
         return request.getRequestURI();
     }
 
