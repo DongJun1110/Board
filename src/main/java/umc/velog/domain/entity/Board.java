@@ -46,9 +46,11 @@ public class Board {
     private String postImg;
 
     public static Board toEntity(BoardDto boardDto) {
+        Member writer = new Member();
+        writer.setUserId(boardDto.getWriterId());
         return Board.builder()
                 .id(boardDto.getId())
-                .writer(boardDto.getWriter())
+                .writer(writer)
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .createdDate(boardDto.getCreatedDate())
