@@ -19,11 +19,15 @@ public class SearchService {
 
     private final BoardRepository boardRepository;
 
-    List<SearchResponseDto> searchList = new ArrayList<>();
     @Transactional
     public List<SearchResponseDto> search(String keyword) {
-        List<Board> byTitleContaining = boardRepository.findByTitleContaining(keyword);
-        for (Board board : byTitleContaining) {
+
+        List<Board> foundBoard = boardRepository.findByTitleContaining(keyword);
+        List<SearchResponseDto> searchList = new ArrayList<>();
+
+        if(foundBoard.isEmpty()) return searchList;
+
+        for (Board board : foundBoard) {
             SearchResponseDto result = new SearchResponseDto();
             result.setPostImg(board.getPostImg());
             result.setUserName(board.getWriter().getUsername());
