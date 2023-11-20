@@ -9,7 +9,7 @@ import umc.velog.service.HeartService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/heart")
+@RequestMapping("/hearts")
 public class HeartController {
 
     private final HeartService heartService;
