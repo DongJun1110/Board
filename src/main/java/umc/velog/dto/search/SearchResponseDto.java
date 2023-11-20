@@ -11,6 +11,8 @@ import java.util.Date;
 @Data
 public class SearchResponseDto {
 
+    private String title;
+    private String content;
     private String postImg;
     private String userName;
     private int commentsCount;
