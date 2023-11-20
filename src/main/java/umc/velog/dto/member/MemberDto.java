@@ -18,7 +18,6 @@ public class MemberDto {
     private String username;
     private String userId;
     private List<Board> boards; // Assuming only board IDs are needed in the DTO
-    private String password;
     private String email;
     private Date createdDate;
     private Role role;
@@ -29,7 +28,6 @@ public class MemberDto {
                 .username(memberEntity.getUsername())
                 .userId(memberEntity.getUserId())
                 .boards(memberEntity.getBoards())
-                .password(memberEntity.getPassword())
                 .email(memberEntity.getEmail())
                 .createdDate(memberEntity.getCreatedDate())
                 .role(memberEntity.getRole())
