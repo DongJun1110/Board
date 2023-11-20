@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/boards")
 @RequiredArgsConstructor
 public class BoardController {
 
@@ -59,7 +59,7 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/profile")
+    @GetMapping("/{userId}/profiles")
     @ResponseBody
     public List<MemberDto> getBoardByUserId(@PathVariable String userId) {
         return boardService.getBoardByUserId(userId);
