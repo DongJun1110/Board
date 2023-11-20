@@ -57,6 +57,7 @@ public class BoardService {
         BoardResponseDto boardResponseDto = new BoardResponseDto();
 
         boardResponseDto.setId(board.getId());
+        boardResponseDto.setUserId(board.getWriter().getUserId());
         boardResponseDto.setUserName(board.getWriter().getUsername());
         boardResponseDto.setPostImg(board.getPostImg());
         boardResponseDto.setTitle(board.getTitle());

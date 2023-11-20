@@ -17,6 +17,7 @@ import java.util.Optional;
 public class BoardResponseDto {
 
     private Long id;
+    private String userId;
     private String title;
     private String content;
     private String userName;
