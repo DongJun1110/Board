@@ -27,5 +27,7 @@ public class BoardResponseDto {
     private String postImg;
     private String nextBoardTitle;
     private Long nextBoardId;
+    private String previousBoardTitle;
+    private Long previousBoardId;
 
 }
