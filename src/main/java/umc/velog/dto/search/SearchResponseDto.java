@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class SearchResponseDto {
 
+    private Long boardId;
     private String title;
     private String content;
     private String postImg;
