@@ -7,6 +7,7 @@ import umc.velog.dto.comment.CommentDto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -24,6 +25,10 @@ public class BoardDto {
     private String postImg;
 
     public static BoardDto toDto(Board boardEntity) {
+        List<CommentDto> commentDtoList = boardEntity.getComments()
+                .stream()
+                .map(CommentDto::toDto)
+                .collect(Collectors.toList());
         return BoardDto.builder()
                 .id(boardEntity.getId())
                 .title(boardEntity.getTitle())
@@ -31,6 +36,7 @@ public class BoardDto {
                 .writerId(boardEntity.getWriter().getUserId())
                 .createdDate(boardEntity.getCreatedDate())
                 .likeCount(boardEntity.getLikeCount())
+                .comments(commentDtoList)
                 .postImg(boardEntity.getPostImg())
                 .build();
     }
