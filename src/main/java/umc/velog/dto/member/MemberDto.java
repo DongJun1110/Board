@@ -20,7 +20,6 @@ public class MemberDto {
     private List<Board> boards; // Assuming only board IDs are needed in the DTO
     private String email;
     private Date createdDate;
-    private Role role;
 
     public static MemberDto toDto(Member memberEntity) {
         return MemberDto.builder()
@@ -30,7 +29,6 @@ public class MemberDto {
                 .boards(memberEntity.getBoards())
                 .email(memberEntity.getEmail())
                 .createdDate(memberEntity.getCreatedDate())
-                .role(memberEntity.getRole())
                 .build();
     }
 
