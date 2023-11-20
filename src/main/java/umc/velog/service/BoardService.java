@@ -67,7 +67,9 @@ public class BoardService {
         boardResponseDto.setComments(comments);
 
         Long nextBoardId = (board.getId()+1);
+        Long previousBoardId = (board.getId()-1);
         Optional<Board> nextBoard = boardRepository.findById(nextBoardId);
+        Optional<Board> previousBoard = boardRepository.findById(previousBoardId);
 
         if(nextBoard.isPresent()){
             boardResponseDto.setNextBoardId(nextBoardId);
@@ -75,6 +77,14 @@ public class BoardService {
         }else{
             boardResponseDto.setNextBoardId(null);
             boardResponseDto.setNextBoardTitle(null);
+        }
+
+        if(previousBoard.isPresent()){
+            boardResponseDto.setPreviousBoardId(previousBoardId);
+            boardResponseDto.setPreviousBoardTitle(previousBoard.get().getTitle());
+        }else{
+            boardResponseDto.setPreviousBoardId(null);
+            boardResponseDto.setPreviousBoardTitle(null);
         }
 
         return boardResponseDto;
