@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Comment;
 import umc.velog.domain.entity.Member;
-import umc.velog.dto.comment.CommentDto;
-import umc.velog.dto.comment.RequestCommentDto;
+import umc.velog.dto.comment.CommentRequestDto;
+import umc.velog.dto.comment.CommentResponseDto;
 import umc.velog.repository.BoardRepository;
 import umc.velog.repository.CommentRepository;
 import umc.velog.repository.MemberRepository;
@@ -31,7 +31,7 @@ public class CommentService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Comment addCommentToBoard(Long boardId, RequestCommentDto requestCommentDto) {
+    public Comment addCommentToBoard(Long boardId, CommentRequestDto requestCommentDto) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -58,10 +58,23 @@ public class CommentService {
     }
 
     @Transactional
-    public List<Comment> getCommentByBoardId(Long boardId) {
+    public List<CommentResponseDto> getCommentByBoardId(Long boardId) {
         Board board = boardRepository.findById(boardId).orElse(null);
+
         if (board != null) {
-            return board.getComments();
+
+            CommentResponseDto commentResponseDto = new CommentResponseDto();
+            List<CommentResponseDto> result = new ArrayList<>();
+            List<Comment> comments = board.getComments();
+
+            for (Comment comment : comments) {
+                commentResponseDto.setId(comment.getId());
+                commentResponseDto.setContent(comment.getContent());
+                commentResponseDto.setCreatedAt(comment.getCreatedAt());
+                commentResponseDto.setUserName(comment.getWriter().getUsername());
+                result.add(commentResponseDto);
+            }
+            return result;
         }
         return new ArrayList<>();
     }
