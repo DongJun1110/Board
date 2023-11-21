@@ -1,6 +1,5 @@
 package umc.velog.dto.comment;
 
-
 import lombok.*;
 
 @AllArgsConstructor
