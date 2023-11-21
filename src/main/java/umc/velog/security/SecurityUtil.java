@@ -18,4 +18,13 @@ public class SecurityUtil {
 
         return userInfoDto;
     }
+
+    public static Boolean isLoginStatus() {
+        UserInfoDto currentMember = getCurrentMemberId();
+        if (currentMember.getUserId() == "anonymousUser") {
+            return false;
+        }
+        return true;
+    }
+
 }

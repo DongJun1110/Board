@@ -1,10 +1,12 @@
 package umc.velog.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.dto.heart.HeartDto;
+import umc.velog.security.SecurityUtil;
 import umc.velog.service.HeartService;
 
 @Controller
@@ -16,7 +18,12 @@ public class HeartController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody HeartDto insert(@RequestBody HeartDto heartDto) throws Exception {
+    public @ResponseBody HeartDto insert(@RequestBody HeartDto heartDto,
+                                         HttpServletResponse response) throws Exception {
+
+        if(!SecurityUtil.isLoginStatus()){
+            response.sendRedirect("/auth/loginPage");
+        }
         return heartService.insert(heartDto);
     }
 

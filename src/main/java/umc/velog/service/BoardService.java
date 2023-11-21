@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -45,7 +44,6 @@ public class BoardService {
 
         return boardDtoList;
     }
-
 
     @Transactional
     public BoardResponseDto getPost(Long postId) {
@@ -83,7 +81,6 @@ public class BoardService {
             boardResponseDto.setNextBoardId(nextBoard.getId());
             boardResponseDto.setNextBoardTitle(nextBoard.getTitle());
         }
-
         return boardResponseDto;
     }
 
@@ -105,13 +102,11 @@ public class BoardService {
         if (authentication != null && authentication.isAuthenticated()) {
             // Get the username of the currently authenticated user
             String userId = SecurityUtil.getCurrentMemberId().getUserId();
-            System.out.println("savePost안 userId = " + userId);
 
             // userId를 사용할 수 있게 되었으므로 로직에서 활용
             Optional<Member> writerOptional = memberRepository.findByUserId(userId);
             if (writerOptional.isPresent()) {
                 Member writer = writerOptional.get();
-                System.out.println("savePost 안 writer = " + writer);
 
                 Board board = new Board();
                 board.setTitle(boardRequestDto.getTitle());
@@ -145,11 +140,9 @@ public class BoardService {
         // Optional이 존재하는 경우에만 로직을 수행
         memberOptional.ifPresent(memberEntity -> {
             memberDtoList.add(MemberDto.toDto(memberEntity));
-            System.out.println("memberDtoList = " + memberDtoList);
         });
 
         return memberDtoList;
     }
-
 
 }

@@ -1,5 +1,6 @@
 package umc.velog.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,11 @@ import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.board.BoardRequestDto;
 import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
+import umc.velog.dto.user.UserInfoDto;
 import umc.velog.security.SecurityUtil;
 import umc.velog.service.BoardService;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +32,6 @@ public class BoardController {
     @ResponseBody
     public List<BoardDto> list() {
         List<BoardDto> boardList = boardService.getBoardList();
-        System.out.println("boardList = " + boardList);
         return boardList;
     }
 
@@ -48,7 +50,13 @@ public class BoardController {
     @PostMapping("/write-form")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> write(@RequestPart("data") BoardRequestDto boardRequestDto,
-                                                     @RequestPart(required = false) MultipartFile image){
+                                                     @RequestPart(required = false) MultipartFile image,
+                                                     HttpServletResponse res) throws IOException {
+
+        if(!SecurityUtil.isLoginStatus()){
+            res.sendRedirect("/auth/loginPage");
+        }
+
         Long boardId = boardService.savePost(boardRequestDto, image);
         String userId = SecurityUtil.getCurrentMemberId().getUserId();
 

@@ -34,20 +34,24 @@ public class CommentService {
     public Comment addCommentToBoard(Long boardId, RequestCommentDto requestCommentDto) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if (authentication != null && authentication.isAuthenticated()) {
+
             String userId = SecurityUtil.getCurrentMemberId().getUserId();
             Optional<Member> foundMember = memberRepository.findByUserId(userId);
-            Member writer = foundMember.get();
 
             Board board = boardRepository.findById(boardId).orElse(null);
 
-            if(board != null){
-                Comment comment = new Comment();
-                comment.setContent(requestCommentDto.getContent());
-                comment.setCreatedAt(new Date());
-                comment.setBoard(board);
-                comment.setWriter(writer);
-                return commentRepository.save(comment);
+            if(foundMember.isPresent()){
+                Member writer = foundMember.get();
+                if(board != null){
+                    Comment comment = new Comment();
+                    comment.setContent(requestCommentDto.getContent());
+                    comment.setCreatedAt(new Date());
+                    comment.setBoard(board);
+                    comment.setWriter(writer);
+                    return commentRepository.save(comment);
+                }
             }
         }
         return null;
