@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -46,7 +45,6 @@ public class BoardService {
         return boardDtoList;
     }
 
-
     @Transactional
     public BoardResponseDto getPost(Long postId) {
         Optional<Board> boardWrapper = boardRepository.findById(postId);
@@ -66,27 +64,23 @@ public class BoardService {
         boardResponseDto.setCreatedDate(board.getCreatedDate());
         boardResponseDto.setComments(comments);
 
-        Long nextBoardId = (board.getId()+1);
-        Long previousBoardId = (board.getId()-1);
-        Optional<Board> nextBoard = boardRepository.findById(nextBoardId);
-        Optional<Board> previousBoard = boardRepository.findById(previousBoardId);
+        Member writer = board.getWriter();
+        List<Board> writerBoards = writer.getBoards();
+        int currentIndex = writerBoards.indexOf(board);
 
-        if(nextBoard.isPresent()){
-            boardResponseDto.setNextBoardId(nextBoardId);
-            boardResponseDto.setNextBoardTitle(nextBoard.get().getTitle());
-        }else{
-            boardResponseDto.setNextBoardId(null);
-            boardResponseDto.setNextBoardTitle(null);
+        // 이전 글
+        if (currentIndex > 0) {
+            Board previousBoard = writerBoards.get(currentIndex - 1);
+            boardResponseDto.setPreviousBoardId(previousBoard.getId());
+            boardResponseDto.setPreviousBoardTitle(previousBoard.getTitle());
         }
 
-        if(previousBoard.isPresent()){
-            boardResponseDto.setPreviousBoardId(previousBoardId);
-            boardResponseDto.setPreviousBoardTitle(previousBoard.get().getTitle());
-        }else{
-            boardResponseDto.setPreviousBoardId(null);
-            boardResponseDto.setPreviousBoardTitle(null);
+        // 다음 글
+        if (currentIndex < writerBoards.size() - 1) {
+            Board nextBoard = writerBoards.get(currentIndex + 1);
+            boardResponseDto.setNextBoardId(nextBoard.getId());
+            boardResponseDto.setNextBoardTitle(nextBoard.getTitle());
         }
-
         return boardResponseDto;
     }
 
@@ -153,6 +147,5 @@ public class BoardService {
 
         return memberDtoList;
     }
-
 
 }
