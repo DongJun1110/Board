@@ -71,7 +71,7 @@ public class CommentService {
                 commentResponseDto.setId(comment.getId());
                 commentResponseDto.setContent(comment.getContent());
                 commentResponseDto.setCreatedAt(comment.getCreatedAt());
-                commentResponseDto.setUserName(comment.getWriter().getUsername());
+                commentResponseDto.setUserId(comment.getWriter().getUserId());
                 result.add(commentResponseDto);
             }
             return result;
