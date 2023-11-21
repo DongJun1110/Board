@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import umc.velog.domain.entity.Comment;
-import umc.velog.dto.comment.CommentDto;
-import umc.velog.dto.comment.RequestCommentDto;
+import umc.velog.dto.comment.CommentRequestDto;
+import umc.velog.dto.comment.CommentResponseDto;
 import umc.velog.security.SecurityUtil;
 import umc.velog.service.CommentService;
 
@@ -26,19 +26,19 @@ public class CommentController {
     public String saveComment(HttpServletRequest request,
                               HttpServletResponse response,
                               @PathVariable Long boardId
-            ,@RequestBody RequestCommentDto requestcommentDto) throws IOException {
+            ,@RequestBody CommentRequestDto commentRequestDto) throws IOException {
 
         if(!SecurityUtil.isLoginStatus()){
             response.sendRedirect("/auth/loginPage");
         }
 
-        commentService.addCommentToBoard(boardId, requestcommentDto);
+        commentService.addCommentToBoard(boardId, commentRequestDto);
         return request.getRequestURI();
     }
 
     @GetMapping("/{boardId}")
     @ResponseBody
-    public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
+    public List<CommentResponseDto> getCommentsByBoardId(@PathVariable Long boardId) {
         return commentService.getCommentByBoardId(boardId);
     }
 }
