@@ -1,6 +1,5 @@
 package umc.velog.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import umc.velog.dto.board.BoardDto;
 import umc.velog.dto.board.BoardRequestDto;
 import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
-import umc.velog.dto.user.UserInfoDto;
 import umc.velog.security.SecurityUtil;
 import umc.velog.service.BoardService;
 
