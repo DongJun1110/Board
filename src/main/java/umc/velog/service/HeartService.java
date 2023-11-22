@@ -8,15 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import umc.velog.domain.entity.Board;
 import umc.velog.domain.entity.Heart;
 import umc.velog.domain.entity.Member;
-import umc.velog.dto.heart.HeartDto;
-import umc.velog.dto.user.UserInfoDto;
+import umc.velog.dto.heart.HeartRequestDto;
+import umc.velog.dto.heart.HeartResponseDto;
 import umc.velog.repository.BoardRepository;
 import umc.velog.repository.HeartRepository;
 import umc.velog.repository.MemberRepository;
 import umc.velog.security.SecurityUtil;
 
-import java.security.Security;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -28,25 +26,31 @@ public class HeartService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public HeartDto insert(HeartDto heartDto) throws Exception{
+    public HeartResponseDto insert(HeartRequestDto heartRequestDto) throws Exception{
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Board board = boardRepository.findById(heartDto.getBoardId())
-                .orElseThrow(() -> new Exception("Not found board id : " + heartDto.getBoardId()));
+        Board board = boardRepository.findById(heartRequestDto.getBoardId())
+                .orElseThrow(() -> new Exception("Not found board id : " + heartRequestDto.getBoardId()));
 
         if (authentication != null && authentication.isAuthenticated()) {
 
             String userId = SecurityUtil.getCurrentMemberId().getUserId();
-
             Optional<Member> memberOptional = memberRepository.findByUserId(userId);
+
+            HeartResponseDto heartResponseDto = new HeartResponseDto();
+
             if (memberOptional.isPresent()) {
 
                 Member member = memberOptional.get();
 
+                heartResponseDto.setUserName(member.getUsername());
+                heartResponseDto.setBoardId(board.getId());
+
                 if (heartRepository.findByMemberAndBoard(member, board).isPresent()) {
-                    return null;
-                }
+                    heartResponseDto.setIsPressed(true);
+                    return heartResponseDto;
+                }else heartResponseDto.setIsPressed(false);
 
                 Heart heart = Heart.builder()
                         .board(board)
@@ -57,7 +61,7 @@ public class HeartService {
                 heartRepository.save(heart);
                 boardRepository.save(board);
 
-                return heartDto;
+                return heartResponseDto;
 
             } else {
                 System.out.println("userId에 해당하는 작성자를 찾을 수 없습니다: " + userId);
@@ -71,14 +75,14 @@ public class HeartService {
     }
 
     @Transactional
-    public HeartDto delete(HeartDto heartDTO) throws Exception {
+    public HeartResponseDto delete(HeartRequestDto heartRequestDto) throws Exception {
 
         String userId = SecurityUtil.getCurrentMemberId().getUserId();
         Optional<Member> memberOptional = memberRepository.findByUserId(userId);
         Member member = memberOptional.get();
 
-        Board board = boardRepository.findById(heartDTO.getBoardId())
-                .orElseThrow(() -> new Exception("Could not found board id : " + heartDTO.getBoardId()));
+        Board board = boardRepository.findById(heartRequestDto.getBoardId())
+                .orElseThrow(() -> new Exception("Could not found board id : " + heartRequestDto.getBoardId()));
 
         Heart heart = heartRepository.findByMemberAndBoard(member, board)
                 .orElseThrow(() -> new Exception("Could not found heart id"));
@@ -86,7 +90,13 @@ public class HeartService {
         heartRepository.delete(heart);
         board.setLikeCount(board.getLikeCount() - 1);
         boardRepository.save(board);
-        return heartDTO;
+
+        HeartResponseDto heartResponseDto = new HeartResponseDto();
+        heartResponseDto.setIsPressed(false);
+        heartResponseDto.setUserName(member.getUsername());
+        heartResponseDto.setBoardId(board.getId());
+
+        return heartResponseDto;
     }
 
 }
