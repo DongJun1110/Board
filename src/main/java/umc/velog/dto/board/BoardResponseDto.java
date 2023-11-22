@@ -29,5 +29,6 @@ public class BoardResponseDto {
     private Long nextBoardId;
     private String previousBoardTitle;
     private Long previousBoardId;
+    private Boolean currentUserLikes;
 
 }
