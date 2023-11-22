@@ -15,6 +15,7 @@ import umc.velog.dto.board.BoardRequestDto;
 import umc.velog.dto.board.BoardResponseDto;
 import umc.velog.dto.member.MemberDto;
 import umc.velog.repository.BoardRepository;
+import umc.velog.repository.HeartRepository;
 import umc.velog.repository.MemberRepository;
 import umc.velog.security.SecurityUtil;
 
@@ -30,6 +31,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+    private final HeartRepository heartRepository;
     private final S3Upload s3Upload;
 
     @Transactional
@@ -47,12 +49,31 @@ public class BoardService {
 
     @Transactional
     public BoardResponseDto getPost(Long postId) {
+
+        BoardResponseDto boardResponseDto = new BoardResponseDto();
+
         Optional<Board> boardWrapper = boardRepository.findById(postId);
         Board board = boardWrapper.get();
 
-        List<Comment> comments = board.getComments();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        BoardResponseDto boardResponseDto = new BoardResponseDto();
+        if (authentication != null && authentication.isAuthenticated()) {
+
+            String userId = SecurityUtil.getCurrentMemberId().getUserId();
+            Optional<Member> foundMember = memberRepository.findByUserId(userId);
+
+            if(foundMember.isPresent()){
+                Member member = foundMember.get();
+
+                if (heartRepository.findByMemberAndBoard(member, board).isPresent()) {
+                    boardResponseDto.setCurrentUserLikes(true);
+                }else{
+                    boardResponseDto.setCurrentUserLikes(false);
+                }
+            }
+        }
+
+        List<Comment> comments = board.getComments();
 
         boardResponseDto.setId(board.getId());
         boardResponseDto.setUserId(board.getWriter().getUserId());
