@@ -16,16 +16,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/loginPage")
-    public String loginPage() {
-        return "auth/loginForm";
-    }
-
-    @GetMapping("/joinPage")
-    public String joinPage() {
-        return "auth/joinForm";
-    }
-
     @PostMapping("/login")
     public TokenInfo login(@RequestBody UserLoginDto userLoginDto) {
         return authService.login(userLoginDto);
