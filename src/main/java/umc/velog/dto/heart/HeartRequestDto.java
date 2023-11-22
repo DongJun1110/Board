@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeartDto {
+public class HeartRequestDto {
 
     private Long boardId;
 

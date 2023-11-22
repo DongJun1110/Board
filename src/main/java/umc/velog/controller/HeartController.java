@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import umc.velog.dto.heart.HeartDto;
+import umc.velog.dto.heart.HeartRequestDto;
+import umc.velog.dto.heart.HeartResponseDto;
 import umc.velog.security.SecurityUtil;
 import umc.velog.service.HeartService;
 
@@ -18,18 +19,19 @@ public class HeartController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody HeartDto insert(@RequestBody HeartDto heartDto,
-                                         HttpServletResponse response) throws Exception {
+    public @ResponseBody HeartResponseDto insert(@RequestBody HeartRequestDto heartRequestDto,
+                                                 HttpServletResponse response) throws Exception {
 
         if(!SecurityUtil.isLoginStatus()){
             response.sendRedirect("/auth/loginPage");
         }
-        return heartService.insert(heartDto);
+
+        return heartService.insert(heartRequestDto);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody HeartDto delete(@RequestBody HeartDto heartDto) throws Exception {
+    public @ResponseBody HeartResponseDto delete(@RequestBody HeartRequestDto heartDto) throws Exception {
         return heartService.delete(heartDto);
     }
 
